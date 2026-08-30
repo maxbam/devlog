@@ -1,0 +1,22 @@
+site_name: devlog
+site_url: https://maxbam.github.io/devlog/
+repo_url: https://github.com/maxbam/devlog
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.top
+    - search.suggest
+    - content.action.edit
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+
+strict: true
