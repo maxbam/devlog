@@ -48,9 +48,12 @@ Confirm WSL, Python, git, and SSH are set up correctly before writing any code.
 Create the repo, venv, pinned dependencies, minimal `mkdocs.yml` with `strict: true`.
 **Checkpoint:** `mkdocs serve` renders a homepage locally.
 
-### Phase 3 — CI/CD deploy
+### Phase 3 — CI/CD deploy ✅
 GitHub Actions workflow: build on push to `main`, deploy via the Pages action. Branch protection on `main`.
 **Checkpoint:** A push to `main` puts the site live on `github.io`. A broken link fails the build.
+**Built:** Two-job workflow (`build` → `deploy`) with explicit minimal `permissions`, `concurrency: pages`, and OIDC deploy via `actions/deploy-pages`. Pages source set to *GitHub Actions*, not a branch.
+**Triggers:** `push` to `main`, `pull_request` to `main`, `workflow_dispatch`. Deploy job gated with `if: github.event_name == 'push' && github.ref == 'refs/heads/main'` so PRs validate but never publish.
+**Verified:** `strict: true` rejects a link to a non-existent page — reproduced locally (`mkdocs build`, non-zero exit) and on a PR, with `main` untouched.
 
 ### Phase 4 — Structure and first article
 Nav structure, `notes/` vs `projects/` split, blog plugin for notes. First article: setting up this site.
@@ -86,14 +89,24 @@ The `mkdocs serve` output prints a warning about MkDocs 2.0. Background:
 
 **Revisit:** start of Phase 4, and again if Material's support window lapses.
 
+### GitHub Actions Node 20 deprecation (identified 2026-08-30)
+
+Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `actions/upload-artifact@v4` target Node 20 and are being forced onto Node 24. GitHub flipped the default on 2026-06-02; Node 20 is removed from runners 2026-09-16.
+
+**Fixed:** bumped to `actions/checkout@v5` and `actions/setup-python@v6`.
+
+**Not ours to fix:** `upload-artifact@v4` is called from inside `upload-pages-artifact@v3`, a composite action. Open upstream issue. Nothing breaks — the job already runs on Node 24.
+
+**Lesson:** we don't control the whole dependency tree. Pinning our own dependencies is necessary but not sufficient. Consider Dependabot for the `github-actions` ecosystem at Phase 6.
+
 **Article material:** this is the first write-up. "Chose a tool, ecosystem forked underneath me, here's how I decided" is more useful than a setup tutorial.
 
 ---
 
 ## Status
 
-**Current phase:** 2 — Repo and local site
-**Current step:** 2.4 — Confirm the site renders at `http://127.0.0.1:8000/devlog/`, then first commit
+**Current phase:** 3 — CI/CD deploy (closing)
+**Current step:** 3.4 — Branch protection ruleset on `main`, then Phase 4
 
 ---
 
@@ -105,6 +118,8 @@ The `mkdocs serve` output prints a warning about MkDocs 2.0. Background:
 | 2026-08-30 | Phase 1 done. Toolchain verified, git identity configured. Repo named `devlog`. |
 | 2026-08-30 | Repo cloned. venv + `mkdocs-material` 9.7.7 installed, `requirements.txt` pinned. Minimal `mkdocs.yml` + `docs/index.md` created; local build succeeds. |
 | 2026-08-30 | Hit the MkDocs 2.0 warning. Researched the ecosystem fork; decided to stay on Material and revisit at Phase 4. Logged under Risks. |
+| 2026-08-30 | Phase 2 done. First commit pushed; site skeleton on `main`. |
+| 2026-08-30 | Deploy workflow added; site live. Bumped actions for Node 24. Added `pull_request` trigger and gated the deploy job so PRs validate without publishing. Confirmed `strict: true` fails the build on a broken link, and that merging a PR redeploys. |
 
 ---
 
