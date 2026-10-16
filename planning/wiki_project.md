@@ -64,7 +64,7 @@ Nav structure, `notes/` vs `projects/` split, blog plugin for notes. First artic
 **Before starting:** ~~re-check Zensical's plugin compatibility page~~ Checked 2026-10-04: `blog` has landed. Migrate first (steps 4.1–4.2), then write.
 **Steps:**
 - 4.0 — ✅ Verified 2026-10-16 via push run 38911805234 (build + deploy green after Node 20 removal).
-- 4.1 — Migrate to Zensical on a branch; let the PR check prove it.
+- 4.1 — ✅ Done 2026-10-16 on branch `feat/zensical-migration` (PR check proves it).
 - 4.2 — Merge, confirm deploy.
 - 4.3 — Nav structure, `notes/` + `projects/`, blog config.
 - 4.4 — First article (written by me, not delegated).
@@ -105,6 +105,12 @@ The `mkdocs serve` output prints a warning about MkDocs 2.0. Background:
 
 **Revisit:** start of Phase 4, and again if Material's support window lapses.
 
+**Resolved 2026-10-16:** migrated to Zensical. Material's support window no longer affects us.
+
+**Watch:** Zensical [#966](https://github.com/zensical/zensical/issues/966) — `--strict` may miss broken links to blog posts by source path. Relevant at step 4.3.
+
+**Upcoming:** Zensical 0.1.0 due 2026-11-05. Routine pinned bump.
+
 ### GitHub Actions Node 20 deprecation (identified 2026-08-30)
 
 Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `actions/upload-artifact@v4` target Node 20 and are being forced onto Node 24. GitHub flipped the default on 2026-06-02; Node 20 is removed from runners 2026-09-16.
@@ -136,7 +142,7 @@ An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + 
 ## Status
 
 **Current phase:** 4 — Structure and first article
-**Current step:** 4.1 — Migrate to Zensical on a branch.
+**Current step:** 4.2 — Merge, confirm deploy.
 **Next up after Phase 5:** Phase 6.0 — game project setup.
 
 ---
@@ -156,10 +162,13 @@ An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + 
 | 2026-10-12 | Explored a 40k-style MMORPG as the Phase 6 project. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling (Blender MCP, Meshy/Tripo). |
 | 2026-10-13 | Phase 6 decided: Godot client, Python backend, staged move to Rust. Compared Godot, Unity, Unreal, and Bevy; Bevy rejected for now. Plan written up in `phase6_pseudo_mmo.md`. |
 | 2026-10-16 | Step 4.0 done. Ruleset bypass list confirmed empty. Run 38911805234 green after Node 20 removal. Remaining Node 20 warnings fixed by bumping `deploy-pages` to v5 and `upload-pages-artifact` to v5. Runner pinned to `ubuntu-24.04` ahead of the Ubuntu 26 switch (2026-10-19). |
+| 2026-10-16 | Step 4.1: migrated to Zensical 0.0.71 (classic variant), still on `mkdocs.yml`. MkDocs + Material removed from `requirements.txt`. Strict verified locally: a broken link and a broken anchor both exit 1. CI runs `zensical build --clean --strict`. |
 
 ---
 
 ## Open questions
 
 - Custom domain, or stick with `username.github.io`? Deferred; easy to add later.
+- Move config from `mkdocs.yml` to `zensical.toml`? (Not required; Zensical reads `mkdocs.yml` natively.)
+- Switch theme variant from `classic` to `modern`?
 - ~~Which backend project for Phase 6? Leaning toward a small API with a real database over a toy CRUD demo.~~ **Resolved 2026-10-13:** pseudo-MMO prototype; the API + database becomes its meta backend. Phase 6 open questions now live in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).

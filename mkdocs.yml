@@ -5,6 +5,7 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  variant: classic
   features:
     - navigation.top
     - search.suggest
