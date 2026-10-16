@@ -56,14 +56,14 @@ Create the repo, venv, pinned dependencies, minimal `mkdocs.yml` with `strict: t
 GitHub Actions workflow: build on push to `main`, deploy via the Pages action. Branch protection on `main`.
 **Checkpoint:** A push to `main` puts the site live on `github.io`. A broken link fails the build.
 **Built:** Two-job workflow (`build` → `deploy`) with explicit minimal `permissions`, `concurrency: pages`, and OIDC deploy via `actions/deploy-pages`. Pages source set to *GitHub Actions*, not a branch.
-**Triggers:** `push` to `main`, `pull_request` to `main`, `workflow_dispatch`. Deploy job gated with `if: github.event_name == 'push' && github.ref == 'refs/heads/main'` so PRs validate but never publish.
+**Triggers:** `push` to `main`, `pull_request` to `main`, `workflow_dispatch`. Deploy job gated with `if: github.event_name == 'push'` so PRs validate but never publish. (`push` only fires on `main`, so no separate branch check is needed.)
 **Verified:** `strict: true` rejects a link to a non-existent page — reproduced locally (`mkdocs build`, non-zero exit) and on a PR, with `main` untouched.
 
 ### Phase 4 — Structure and first article
 Nav structure, `notes/` vs `projects/` split, blog plugin for notes. First article: setting up this site.
 **Before starting:** ~~re-check Zensical's plugin compatibility page~~ Checked 2026-10-04: `blog` has landed. Migrate first (steps 4.1–4.2), then write.
 **Steps:**
-- 4.0 — Trigger a manual workflow run; confirm green after Node 20 removal (2026-09-16). Last run was 2026-08-30.
+- 4.0 — ✅ Verified 2026-10-16 via push run 38911805234 (build + deploy green after Node 20 removal).
 - 4.1 — Migrate to Zensical on a branch; let the PR check prove it.
 - 4.2 — Merge, confirm deploy.
 - 4.3 — Nav structure, `notes/` + `projects/`, blog config.
@@ -113,11 +113,19 @@ Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `ac
 
 **Update 2026-10-04:** Node 20 removal date has passed. Workflow not exercised since 2026-08-30 — verify with a manual run (step 4.0).
 
-**Not ours to fix:** `upload-artifact@v4` is called from inside `upload-pages-artifact@v3`, a composite action. Open upstream issue. Nothing breaks — the job already runs on Node 24.
+~~**Not ours to fix:** `upload-artifact@v4` is called from inside `upload-pages-artifact@v3`, a composite action. Open upstream issue. Nothing breaks — the job already runs on Node 24.~~ **Resolved 2026-10-16:** `upload-pages-artifact@v5` bundles `upload-artifact@v7`. Bumped. (v4+ excludes dotfiles from the artifact; our `site/` has none.)
+
+**Also found 2026-10-16:** `deploy-pages@v4` warned too (it targets Node 20). Bumped to v5.
 
 **Lesson:** we don't control the whole dependency tree. Pinning our own dependencies is necessary but not sufficient. Consider Dependabot for the `github-actions` ecosystem at Phase 6.
 
 **Article material:** this is the first write-up. "Chose a tool, ecosystem forked underneath me, here's how I decided" is more useful than a setup tutorial.
+
+### Ubuntu 26 runner migration (identified 2026-10-16)
+
+`ubuntu-latest` moves to Ubuntu 26 starting 2026-10-19. Pinned both jobs to `ubuntu-24.04` so the runner doesn't change under the Zensical migration.
+
+**Revisit:** after step 4.2.
 
 ### Phase 6 scope creep (identified 2026-10-13)
 
@@ -128,7 +136,7 @@ An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + 
 ## Status
 
 **Current phase:** 4 — Structure and first article
-**Current step:** 4.0 — Verify the bypass list on the `main` ruleset is empty, then trigger a manual workflow run as a baseline before migrating.
+**Current step:** 4.1 — Migrate to Zensical on a branch.
 **Next up after Phase 5:** Phase 6.0 — game project setup.
 
 ---
@@ -147,6 +155,7 @@ An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + 
 | 2026-10-04 | Back after a month. VS Code + Claude Code installed in WSL. Zensical revisit triggered: `blog` and `tags` both shipped. Decision reversed — migrate before Phase 4 content. |
 | 2026-10-12 | Explored a 40k-style MMORPG as the Phase 6 project. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling (Blender MCP, Meshy/Tripo). |
 | 2026-10-13 | Phase 6 decided: Godot client, Python backend, staged move to Rust. Compared Godot, Unity, Unreal, and Bevy; Bevy rejected for now. Plan written up in `phase6_pseudo_mmo.md`. |
+| 2026-10-16 | Step 4.0 done. Ruleset bypass list confirmed empty. Run 38911805234 green after Node 20 removal. Remaining Node 20 warnings fixed by bumping `deploy-pages` to v5 and `upload-pages-artifact` to v5. Runner pinned to `ubuntu-24.04` ahead of the Ubuntu 26 switch (2026-10-19). |
 
 ---
 
