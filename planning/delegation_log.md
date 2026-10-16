@@ -1,3 +1,4 @@
 | date | task | what you did | files changed | my notes |
 |---|---|---|---|---|
 | 2026-10-16 | Step 4.0: verify CI after Node 20 removal | Explained that removing Node 20 is GitHub's job, not yours. Confirmed the ruleset bypass list is empty and that push run 38911805234 was green. Found new warnings (`deploy-pages@v4` on Node 20, Ubuntu 26 switch). Bumped `deploy-pages` and `upload-pages-artifact` to v5 after checking release notes and confirming no dotfiles in `site/`. Pinned `ubuntu-24.04`. Fixed the deploy-gate text. Updated Status, Progress log, and Risks. | `.github/workflows/deploy.yml`, `planning/wiki_project.md`, `planning/delegation_log.md` | |
+| 2026-10-16 | Remove old root `wiki_project.md` | Confirmed it was an outdated copy of `planning/wiki_project.md`: nothing unique in it and nothing linking to it. Removed it with `git rm` on a new branch. | `wiki_project.md` (deleted), `planning/delegation_log.md` | |
