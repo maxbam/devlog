@@ -5,31 +5,30 @@ Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before 
 
 ## Stack
 
-- MkDocs Material 9.7.7 with `strict: true`. **Migration to Zensical is planned (roadmap step 4.1).** Update this file when it lands.
+- Zensical 0.0.71 (classic variant) with `strict: true`. Config is still `mkdocs.yml`, which Zensical reads natively. Migrated from MkDocs Material 9.7.7 in step 4.1.
 - Python 3.12 in WSL. Dependencies are fully pinned in `requirements.txt`.
 - Deploy: GitHub Actions → GitHub Pages (`.github/workflows/`). Two jobs: `build` → `deploy`. Pull requests build but never deploy.
 
 ## Layout
 
 - `docs/` — site content. `notes/` and `projects/` sections are planned (step 4.3).
-- `mkdocs.yml` — site config.
+- `mkdocs.yml` — site config (read by Zensical; the filename is historical).
 - `planning/` — living planning docs (`wiki_project.md`, `phase6_pseudo_mmo.md`). Not part of the site.
 - `planning/delegation_log.md` — log of delegated tasks (see below).
 
 ## Commands
 
-- `mkdocs serve` — local preview.
-- `mkdocs build` — must exit 0. With `strict: true`, any warning (e.g. a broken link) fails the build, locally and in CI.
+- `zensical serve` — local preview.
+- `zensical build --clean` — must exit 0. With `strict: true`, a broken link or anchor fails the build, locally and in CI (CI also passes `--strict`).
 
 ## Rules
 
 - **Never commit or push to `main`.** The ruleset requires a PR and a green `build` check. Work on a branch; I open and merge the PR.
-- **Never use `mkdocs gh-deploy`.** Deploys go through CI only.
+- **Never deploy from a local machine.** Deploys go through CI only. (Zensical has no `gh-deploy`; don't add a substitute.)
 - **Never weaken `strict: true`** or silence warnings to get a build green. Fix the cause.
-- **Do not set `NO_MKDOCS_2_WARNING`.** The warning is intentional signal.
 - **Pin exact versions** when adding or bumping a dependency, and say why in the commit message.
 - **GitHub Actions:** keep minimal `permissions`, keep the deploy-job gate, and use current major versions (`actions/checkout@v5`, `actions/setup-python@v6`).
-- Run `mkdocs build` before saying a task is done, and report the result.
+- Run `zensical build --clean` before saying a task is done, and report the result.
 
 ## Content
 
