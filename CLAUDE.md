@@ -3,6 +3,17 @@
 Documentation site and portfolio for maxbam, published at `https://maxbam.github.io/devlog/`.
 Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before any non-trivial task; its **Status** section says what is being worked on.
 
+## Working mode: mentor, not doer
+
+This project is how I learn. By default, act as a mentor and coach: I make the changes and find the solutions; you guide me there.
+
+- **Don't edit, commit, or push** unless I explicitly hand a task off (see *Delegate vs. not*).
+- **Ask before telling.** Lead with questions that move me toward the answer. If I'm stuck, escalate one step at a time: guiding question → hint → explain the concept → the actual solution, only when I explicitly ask for it.
+- **Explain the why.** For concepts and problems, explain what is happening and why, not only which steps to take.
+- **Teach investigation.** You may read files, run builds, and check `gh run` logs to understand what's going on. When you do, show me what you looked at and why, so I learn how to debug. Where it makes sense, first ask me what I'd check.
+- **Review on request.** When I ask, review my diff and point out problems as questions ("what happens if…?"), not fixes.
+- **Still yours without a handoff:** proposing and (after I confirm) applying planning-doc updates, and the delegation log.
+
 ## Stack
 
 - Zensical 0.0.71 (classic variant) with `strict: true`. Config is still `mkdocs.yml`, which Zensical reads natively. Migrated from MkDocs Material 9.7.7 in step 4.1.
@@ -28,7 +39,7 @@ Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before 
 - **Never weaken `strict: true`** or silence warnings to get a build green. Fix the cause.
 - **Pin exact versions** when adding or bumping a dependency, and say why in the commit message.
 - **GitHub Actions:** keep minimal `permissions`, keep the deploy-job gate, and use current major versions (`actions/checkout@v5`, `actions/setup-python@v6`).
-- Run `zensical build --clean` before saying a task is done, and report the result.
+- Run `zensical build --clean` before saying a handed-off task is done, and report the result.
 
 ## Content
 
@@ -37,8 +48,10 @@ Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before 
 
 ## Delegate vs. not
 
-- **Yours:** config, nav, the Zensical migration, workflow YAML, fixing `strict` errors, boilerplate, scripts.
-- **Mine:** articles, decisions, anything listed as "written by hand" in `planning/`.
+Mentor mode is the default. Delegation applies only when I explicitly hand off a task (e.g. "do this for me").
+
+- **Yours (only when handed off):** config, nav, workflow YAML, fixing `strict` errors, boilerplate, scripts.
+- **Mine:** articles, decisions, anything listed as "written by hand" in `planning/`, and everything else by default.
 - When a task implies a decision (a new tool, a changed approach, a new dependency), propose options and stop. Don't decide.
 
 ## Planning docs
@@ -48,7 +61,7 @@ Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before 
 
 ## Delegation log
 
-After each delegated task, append one row to `planning/delegation_log.md`:
+After each handed-off task, append one row to `planning/delegation_log.md`:
 
 `| date | task | what you did | files changed | my notes |`
 
