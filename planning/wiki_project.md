@@ -30,6 +30,7 @@ The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**:
 | Repo name | `devlog` → `maxbam.github.io/devlog/` | Keeps the root `maxbam.github.io` free for a landing page later. Avoids `wiki/wiki` URL collision with GitHub's built-in wiki feature. |
 | Phase 6 project | Pseudo-MMO prototype (40k-*style*, original IP): shared hub + instanced zones, 3 classes, one starting zone (decided 2026-10-13) | Big enough to need real backend engineering (API, database, real-time server, contracts), small enough to finish. Expandable zone by zone. Absorbs the original "small API + Postgres" plan as its meta backend. |
 | Language path | Python first, then Rust — module by module, then service by service (decided 2026-10-13) | Start productive in a known language; move to Rust where it measurably pays off. Each migration becomes a devlog article with before/after numbers. Rust is learned by hand, not delegated. |
+| AI role | Coach first, delegate later (decided 2026-10-16) | Learning by doing. Delegate and automate only once the topics are understood. Automation becomes its own article after Phase 6. |
 
 ### Guiding principles
 
@@ -70,10 +71,10 @@ Nav structure, `notes/` vs `projects/` split, blog plugin for notes. First artic
 - 4.4 — First article (written by me, not delegated).
 **Checkpoint:** One real article published end to end.
 
-### Phase 5 — Claude Code + VS Code workflow
-Install in WSL, `CLAUDE.md` conventions, what to delegate and what not to.
-**Done early:** VS Code and Claude Code installed (confirmed 2026-10-04). Use them during Phase 4 for mechanical work (nav, config, fixing `strict` errors) and keep notes on where delegation was fast vs. where correcting it took longer — that is Phase 5's raw material.
-**Checkpoint:** A documented workflow, written up as article two.
+### Phase 5 — Learning with AI as a coach
+Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventions (guiding question → hint → concept → solution only on request), learning to investigate and debug, and when a handoff is still fine. Raw material: `planning/coaching_log.md`.
+**Done early:** VS Code and Claude Code installed (confirmed 2026-10-04). Mentor mode active since 2026-10-16 (PR #8). Steps up to 4.1 were delegated, which gives a "before" picture to compare against.
+**Checkpoint:** Article two — how to use AI to learn, with AI as a coach.
 
 ### Phase 6 — Pseudo-MMO prototype (main portfolio project)
 ~~Small API + Postgres, migrations, docker-compose for local dev, tests in CI.~~ Expanded 2026-10-13: the original backend project becomes the **meta backend** (subphase 6.1) of a pseudo-MMO prototype.
@@ -81,6 +82,10 @@ Install in WSL, `CLAUDE.md` conventions, what to delegate and what not to.
 **Subphases:** 6.0 project setup → 6.1 meta backend → 6.2 networked skeleton → 6.3 combat core → 6.4 starting zone → 6.5 hub → 6.6 first Rust module (PyO3) → 6.7 Rust game server.
 **Details:** [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md). One file per subphase as each starts.
 **Checkpoint:** Two players level through the starting zone together; green CI; every major change written up in `projects/`.
+
+### Phase 7 — AI automation in a larger project (after Phase 6)
+Once the topics are understood: which tasks in a big software project to delegate or automate with AI, and how. Raw material: `planning/delegation_log.md`.
+**Checkpoint:** Its own article.
 
 ---
 
@@ -163,6 +168,7 @@ An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + 
 | 2026-10-13 | Phase 6 decided: Godot client, Python backend, staged move to Rust. Compared Godot, Unity, Unreal, and Bevy; Bevy rejected for now. Plan written up in `phase6_pseudo_mmo.md`. |
 | 2026-10-16 | Step 4.0 done. Ruleset bypass list confirmed empty. Run 38911805234 green after Node 20 removal. Remaining Node 20 warnings fixed by bumping `deploy-pages` to v5 and `upload-pages-artifact` to v5. Runner pinned to `ubuntu-24.04` ahead of the Ubuntu 26 switch (2026-10-19). |
 | 2026-10-16 | Step 4.1: migrated to Zensical 0.0.71 (classic variant), still on `mkdocs.yml`. MkDocs + Material removed from `requirements.txt`. Strict verified locally: a broken link and a broken anchor both exit 1. CI runs `zensical build --clean --strict`. |
+| 2026-10-16 | Switched to mentor mode (PR #8). Phase 5 refocused on learning with AI as a coach. AI automation moved to Phase 7, after Phase 6. |
 
 ---
 
