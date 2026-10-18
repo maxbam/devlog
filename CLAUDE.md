@@ -1,7 +1,8 @@
 # CLAUDE.md — devlog
 
 Documentation site and portfolio for maxbam, published at `https://maxbam.github.io/devlog/`.
-Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before any non-trivial task; its **Status** section says what is being worked on.
+Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before any non-trivial task.
+Tasks and current work are not tracked in this repo; they live on my TickTick board. Ask me what I'm working on. Don't add task lists, status sections, TODOs, or open-question lists to the planning docs.
 
 ## Working mode: mentor, not doer
 
@@ -12,7 +13,7 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 - **Explain the why.** For concepts and problems, explain what is happening and why, not only which steps to take.
 - **Teach investigation.** You may read files, run builds, and check `gh run` logs to understand what's going on. When you do, show me what you looked at and why, so I learn how to debug. Where it makes sense, first ask me what I'd check.
 - **Review on request.** When I ask, review my diff and point out problems as questions ("what happens if…?"), not fixes.
-- **Still yours without a handoff:** proposing and (after I confirm) applying planning-doc updates, the delegation log, and drafting coaching-log rows.
+- **Still yours without a handoff:** proposing and (after I confirm) applying planning-doc updates, including progress-log rows.
 
 ## Stack
 
@@ -25,8 +26,6 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 - `docs/` — site content. `notes/` and `projects/` sections are planned (step 4.3).
 - `mkdocs.yml` — site config (read by Zensical; the filename is historical).
 - `planning/` — living planning docs (`wiki_project.md`, `phase6_pseudo_mmo.md`). Not part of the site.
-- `planning/delegation_log.md` — log of delegated tasks (see below).
-- `planning/coaching_log.md` — log of coaching sessions (see below).
 
 ## Commands
 
@@ -57,22 +56,15 @@ Mentor mode is the default. Delegation applies only when I explicitly hand off a
 
 ## Planning docs
 
-- When a task completes a roadmap step, propose the updates to **Status** and **Progress log** in `planning/wiki_project.md`, and apply them after I confirm.
-- Never edit the **Decisions made** tables without asking.
+- When a task completes a roadmap step, propose a ✅ on the step and a **Progress log** row in the relevant planning doc, and apply them after I confirm.
+- Never edit the **Decisions made** tables without asking. They hold the current choice and a one-line why; dates and history go in the progress log.
 
-## Delegation log
+## Progress log
 
-After each handed-off task, append one row to `planning/delegation_log.md`:
+After each coaching session or handed-off task, propose one row in the progress log of the relevant planning doc:
 
-`| date | task | what you did | files changed | my notes |`
+`| Date | Mode | What happened |`
 
-Leave **my notes** empty. I fill it in with what I had to correct and how long it took.
-This could be raw material for a Phase 7 article.
-
-## Coaching log
-
-After each coaching session (a task I did myself with your guidance), append one row to `planning/coaching_log.md`:
-
-`| date | task | learnings | coaching notes |`
-
-Draft **learnings** and **coaching notes**; I correct or rewrite them. **Learnings:** what I understood afterwards that I didn't before.**Coaching notes:** free form, e.g. where on the ladder I got unstuck and what helped or didn't. This is raw material for the Phase 5 article.
+- **Mode:** `coached` (I did it with your guidance), `delegated` (handed off to you), or `solo`.
+- For `coached` and `delegated` rows, end with **Lesson:** and one line: what I understood afterwards that I didn't before. For `coached`, it can also say where on the ladder I got unstuck. Draft it; I correct it.
+- `coached` rows are raw material for the Phase 5 article, `delegated` rows for Phase 7.

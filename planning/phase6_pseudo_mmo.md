@@ -1,6 +1,6 @@
 # Phase 6 — Pseudo-MMO Prototype
 
-Living document for Phase 6 of the [Wiki / Portfolio Project](wiki_project.md). Holds the decisions, architecture, and subphase plan. Each subphase gets its own file when it starts: `phase6.1_meta_backend.md`, `phase6.2_networked_skeleton.md`, and so on.
+Living document for Phase 6 of the [Wiki / Portfolio Project](wiki_project.md). Holds the decisions, architecture, and subphase plan. Tasks live on the TickTick board, not here.
 
 ---
 
@@ -23,9 +23,9 @@ A playable prototype of a **40k-style pseudo-MMO**: gothic sci-fi, grimdark tone
 | Scope | Pseudo-MMO: hub + instances, 3 classes, one starting zone | A true MMO is a multi-year studio project. Hub + instances keeps the MMO feel and stays buildable solo. |
 | Setting | 40k-*style*, original IP | No Games Workshop names, factions, or trademarks (Space Marines, Imperium, etc.). GW enforces its IP actively. |
 | Client engine | Godot 4, GDScript | Text-based scene files Claude Code can read and edit; Python-like language; performance is fine for stylized scenes and small instances. |
-| Camera | Isometric (decided 2026-10-13) | Much cheaper than third-person in camera code, animation, and level work. Fits the server's ground-plane simulation. Tactical, grimdark look suits the setting. |
-| Movement input | WASD, camera-relative (decided 2026-10-13) | Direct, action-oriented feel. Client sends a movement direction each tick; the server moves the character and resolves collisions against the zone's walkable area. Needs client-side prediction for the player's own character, or input feels laggy. Pathfinding stays server-side for enemies only. |
-| Godot editor location | Windows-native Godot opens the project inside the WSL filesystem via `\\wsl.localhost\...` (provisional, 2026-10-13) | Godot's Vulkan renderer is poorly supported under WSL (software fallback, crashes). Keeps one repo, in WSL, as the single source of truth. WSL2 forwards `localhost`, so the client reaches the API and game server without extra config. **Fallback:** if file scanning/imports get slow once real assets land (6.4), use a second clone on the Windows side for client work. |
+| Camera | Isometric | Much cheaper than third-person in camera code, animation, and level work. Fits the server's ground-plane simulation. Tactical, grimdark look suits the setting. |
+| Movement input | WASD, camera-relative | Direct, action-oriented feel. Client sends a movement direction each tick; the server moves the character and resolves collisions against the zone's walkable area. Needs client-side prediction for the player's own character, or input feels laggy. Pathfinding stays server-side for enemies only. |
+| Godot editor location | Windows-native Godot opens the project inside the WSL filesystem via `\\wsl.localhost\...` (provisional) | Godot's Vulkan renderer is poorly supported under WSL (software fallback, crashes). Keeps one repo, in WSL, as the single source of truth. WSL2 forwards `localhost`, so the client reaches the API and game server without extra config. **Fallback:** if file scanning/imports get slow once real assets land (6.4), use a second clone on the Windows side for client work. |
 | Meta backend | FastAPI, PostgreSQL, SQLAlchemy, Alembic, Redis, JWT | Known language (Python), matches the original Phase 6 plan, standard backend stack worth showing. |
 | Real-time game server | Python (asyncio), server-authoritative; later rewritten in Rust | See note below. Gives the Python → Rust path a real, measurable target. |
 | Language path | Python first → Rust via PyO3 modules → full Rust game server | Start productive; migrate where it measurably pays off; document each step with before/after numbers. |
@@ -38,7 +38,7 @@ A playable prototype of a **40k-style pseudo-MMO**: gothic sci-fi, grimdark tone
 | Assets | Blender (+ Blender MCP), Meshy/Tripo for models, Mixamo for animations, glTF/GLB, Git LFS | Claude Code doesn't make art. Placeholders until 6.4; check licenses before use. |
 | Hosting | Single cheap VPS when needed | Kubernetes/Agones only if a real limit forces it. |
 
-**Game server note (2026-10-13):** earlier discussion assumed a Godot headless server. Switched to a separate Python server because (a) it's a backend showcase rather than engine scripting, (b) it gives the PyO3 step (6.6) real CPU-bound Python code to optimize, and (c) a Rust rewrite (6.7) then replaces Python with Rust behind the same protocol. Cost: the server can't reuse Godot's physics, so it simulates a simplified world — positions on the ground plane, circle colliders, a navmesh exported from the zone. The client renders full 3D.
+**Game server note:** earlier discussion assumed a Godot headless server. Switched to a separate Python server because (a) it's a backend showcase rather than engine scripting, (b) it gives the PyO3 step (6.6) real CPU-bound Python code to optimize, and (c) a Rust rewrite (6.7) then replaces Python with Rust behind the same protocol. Cost: the server can't reuse Godot's physics, so it simulates a simplified world — positions on the ground plane, circle colliders, a navmesh exported from the zone. The client renders full 3D.
 
 ### Alternatives considered
 
@@ -58,7 +58,7 @@ A playable prototype of a **40k-style pseudo-MMO**: gothic sci-fi, grimdark tone
 - **Practices are answers to problems** (from the main project). Start deliberately simple — JSON over WebSockets, one process — and change things only when measurement shows a reason. Each change is an article.
 - **One checkpoint per subphase.** No new system until the current checkpoint visibly works.
 - **Boundaries first.** Contracts are written before the code on either side of them.
-- **Delegate the mechanical, own the core.** Claude Code: boilerplate, config, UI wiring, test scaffolding. Me: protocol design, all Rust, all articles. Keep notes on what delegation cost and saved — that's Phase 5 material.
+- **Delegate the mechanical, own the core.** Claude Code: boilerplate, config, UI wiring, test scaffolding. Me: protocol design, all Rust, all articles. Log what delegation cost and saved as `delegated` progress-log rows — that's Phase 7 material.
 
 ---
 
@@ -105,7 +105,9 @@ game/
 Rough effort: 6.0–6.5 around **3–5 months part-time**. 6.6–6.7 depend on how Rust learning goes. Estimates, not commitments.
 
 ### 6.0 — Project setup
-- Create the repo with the layout above; Git LFS for assets from the first commit.
+- Decide: setting and names — game name (also the repo name), factions, tone document.
+- Decide: confirm the repo layout above.
+- Create the repo with that layout; Git LFS for assets from the first commit.
 - Docker Compose with API, Postgres, and Redis (empty services).
 - CI skeleton: lint (Ruff), tests, runs on PRs; same ruleset as `devlog` (require PR, require checks).
 - Dependabot for the `github-actions` ecosystem (lesson from the Node 20 deprecation).
@@ -117,6 +119,7 @@ Rough effort: 6.0–6.5 around **3–5 months part-time**. 6.6–6.7 depend on h
 
 ### 6.1 — Meta backend
 The original Phase 6 project.
+- Decide: the three class archetypes (e.g. melee, ranged, support) and their names — character creation needs them.
 - FastAPI app; SQLAlchemy models; Alembic migrations.
 - Accounts: register, login, password hashing (argon2), JWT issue/refresh.
 - Characters: create (pick one of 3 classes), list, delete.
@@ -149,7 +152,8 @@ The original Phase 6 project.
 ### 6.4 — Starting zone
 - Instance system: one instance per party, created and torn down on demand.
 - Zone layout, enemy spawns, navmesh exported for the server.
-- 3–5 quests and loot tables as data; level cap around 5–10.
+- Decide: level cap for the starting zone, 5 or 10.
+- 3–5 quests and loot tables as data.
 - Inventory and progress persisted via the meta backend (service-to-service auth).
 - Real assets: style guide first, then the pipeline (concept images → image-to-3D → Blender cleanup → Mixamo → glTF). License check for every source.
 
@@ -212,23 +216,12 @@ More zones and classes; deploy to a VPS; possibly the meta backend in Rust (Axum
 
 ---
 
-## Open questions
-
-- ~~**Camera:** third-person or top-down/isometric?~~ **Resolved 2026-10-13:** isometric.
-- ~~**Movement input:** click-to-move or WASD?~~ **Resolved 2026-10-13:** WASD, camera-relative.
-- **Setting and names:** game name, factions, tone document.
-- **Classes:** which three archetypes (e.g. melee, ranged, support) and their names.
-- **Repo layout:** confirm the monorepo layout above at 6.0.
-- ~~**Godot editor location:** Windows or WSL?~~ **Resolved 2026-10-13:** Windows-native editor, repo stays in WSL (provisional; see decisions).
-- **Level cap** for the starting zone: 5 or 10?
-- **Transport switch:** when, if ever, to move from JSON/WebSockets to UDP/binary — decided by 6.5–6.7 measurements.
-
----
-
 ## Progress log
 
-| Date | What happened |
-|---|---|
-| 2026-10-12 | Idea: 40k-style MMORPG prototype. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling: Blender MCP for scene work, Meshy/Tripo for generated assets. |
-| 2026-10-13 | Engines compared (Godot, Unity, Unreal, Bevy). Portfolio target set: backend / general SE. Language path decided: Python first, then Rust. Game server moved from Godot headless to a separate Python service. Subphases 6.0–6.7 drafted. |
-| 2026-10-13 | Camera: isometric. Godot editor: Windows-native, opening the repo inside WSL (fallback: Windows-side clone if imports get slow). Movement: WASD, camera-relative; client-side prediction added to 6.2. |
+Mode: `coached`, `delegated`, `solo`, or `—` (before modes were tracked). See [`wiki_project.md`](wiki_project.md#progress-log).
+
+| Date | Mode | What happened |
+|---|---|---|
+| 2026-10-12 | — | Idea: 40k-style MMORPG prototype. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling: Blender MCP for scene work, Meshy/Tripo for generated assets. |
+| 2026-10-13 | — | Engines compared (Godot, Unity, Unreal, Bevy). Portfolio target set: backend / general SE. Language path decided: Python first, then Rust. Game server moved from Godot headless to a separate Python service. Subphases 6.0–6.7 drafted. |
+| 2026-10-13 | — | Camera: isometric. Godot editor: Windows-native, opening the repo inside WSL (fallback: Windows-side clone if imports get slow). Movement: WASD, camera-relative; client-side prediction added to 6.2. |
