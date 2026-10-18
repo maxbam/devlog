@@ -1,6 +1,6 @@
 # Wiki / Portfolio Project
 
-Living document. Updated as we go — decisions, progress, and what's next.
+Living document: the plan, decisions, and progress. Tasks and what's next live on the TickTick board, not here.
 
 ---
 
@@ -21,16 +21,16 @@ The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**:
 
 | Decision | Choice | Why |
 |---|---|---|
-| Docs platform | MkDocs Material (not GitHub Wiki) | Wiki has no build pipeline, poor theming, bad discoverability. MkDocs is Python, matches the rest of the stack. |
+| Docs platform | Zensical (classic variant), config in `mkdocs.yml` (not GitHub Wiki) | Wiki has no build pipeline, poor theming, bad discoverability. Zensical is the successor to Material for MkDocs (maintenance mode), Python-installable, and supports `blog` and `tags`. Background under Risks. |
 | Language | Python | Already familiar, used at work. |
-| Environment | WSL | Containers are Linux; CI runs `ubuntu-latest`. Code lives in WSL filesystem, not `/mnt/c/`. |
-| Deploy | GitHub Actions → Pages | Not `mkdocs gh-deploy` — that builds from local state and skips CI entirely. |
+| Environment | WSL | Containers are Linux; CI runs on Ubuntu. Code lives in WSL filesystem, not `/mnt/c/`. |
+| Deploy | GitHub Actions → Pages | Never from a local machine — that builds from local state and skips CI entirely. |
 | Repo layout | One repo per project + one docs repo | Projects get thorough READMEs; docs site links out and holds cross-cutting material. |
-| Stay on Material vs. migrate to Zensical | ~~Stay on Material for MkDocs 9.7.7 for now~~ → **Migrate to Zensical before Phase 4 content** (revised 2026-10-04) | Original call (2026-08-30): stay, because Zensical lacked the `blog` plugin. Revisit condition met: `blog` shipped in Zensical 0.0.64, `tags` in 0.0.58. Material's security-fix window ends Nov 2026. Migration cost is lowest now, with one page of content. |
 | Repo name | `devlog` → `maxbam.github.io/devlog/` | Keeps the root `maxbam.github.io` free for a landing page later. Avoids `wiki/wiki` URL collision with GitHub's built-in wiki feature. |
-| Phase 6 project | Pseudo-MMO prototype (40k-*style*, original IP): shared hub + instanced zones, 3 classes, one starting zone (decided 2026-10-13) | Big enough to need real backend engineering (API, database, real-time server, contracts), small enough to finish. Expandable zone by zone. Absorbs the original "small API + Postgres" plan as its meta backend. |
-| Language path | Python first, then Rust — module by module, then service by service (decided 2026-10-13) | Start productive in a known language; move to Rust where it measurably pays off. Each migration becomes a devlog article with before/after numbers. Rust is learned by hand, not delegated. |
-| AI role | Coach first, delegate later (decided 2026-10-16) | Learning by doing. Delegate and automate only once the topics are understood. Automation becomes its own article after Phase 6. |
+| Phase 6 project | Pseudo-MMO prototype (40k-*style*, original IP): shared hub + instanced zones, 3 classes, one starting zone | Big enough to need real backend engineering (API, database, real-time server, contracts), small enough to finish. Expandable zone by zone. Absorbs the original "small API + Postgres" plan as its meta backend. |
+| Language path | Python first, then Rust — module by module, then service by service | Start productive in a known language; move to Rust where it measurably pays off. Each migration becomes a devlog article with before/after numbers. Rust is learned by hand, not delegated. |
+| AI role | Coach first, delegate later | Learning by doing. Delegate and automate only once the topics are understood. Automation becomes its own article after Phase 6. |
+| Task tracking | TickTick GTD board, not the repo | One owner per fact: planning docs hold the plan, decisions, and history; TickTick holds what to do now. Avoids stale status sections. |
 
 ### Guiding principles
 
@@ -62,17 +62,16 @@ GitHub Actions workflow: build on push to `main`, deploy via the Pages action. B
 
 ### Phase 4 — Structure and first article
 Nav structure, `notes/` vs `projects/` split, blog plugin for notes. First article: setting up this site.
-**Before starting:** ~~re-check Zensical's plugin compatibility page~~ Checked 2026-10-04: `blog` has landed. Migrate first (steps 4.1–4.2), then write.
 **Steps:**
 - 4.0 — ✅ Verified 2026-10-16 via push run 38911805234 (build + deploy green after Node 20 removal).
 - 4.1 — ✅ Done 2026-10-16 on branch `feat/zensical-migration` (PR check proves it).
-- 4.2 — Merge, confirm deploy.
+- 4.2 — ✅ Merge, confirm deploy. Done 2026-10-16: PR #7 merged, push run 38921045348 green.
 - 4.3 — Nav structure, `notes/` + `projects/`, blog config.
 - 4.4 — First article (written by me, not delegated).
 **Checkpoint:** One real article published end to end.
 
 ### Phase 5 — Learning with AI as a coach
-Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventions (guiding question → hint → concept → solution only on request), learning to investigate and debug, and when a handoff is still fine. Raw material: `planning/coaching_log.md`.
+Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventions (guiding question → hint → concept → solution only on request), learning to investigate and debug, and when a handoff is still fine. Raw material: `coached` rows in the progress logs.
 **Done early:** VS Code and Claude Code installed (confirmed 2026-10-04). Mentor mode active since 2026-10-16 (PR #8). Steps up to 4.1 were delegated, which gives a "before" picture to compare against.
 **Checkpoint:** Article two — how to use AI to learn, with AI as a coach.
 
@@ -80,18 +79,28 @@ Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventi
 ~~Small API + Postgres, migrations, docker-compose for local dev, tests in CI.~~ Expanded 2026-10-13: the original backend project becomes the **meta backend** (subphase 6.1) of a pseudo-MMO prototype.
 **Stack:** Godot 4 client (GDScript) · FastAPI + PostgreSQL + Redis meta backend · Python real-time game server, migrating to Rust · Docker Compose · GitHub Actions.
 **Subphases:** 6.0 project setup → 6.1 meta backend → 6.2 networked skeleton → 6.3 combat core → 6.4 starting zone → 6.5 hub → 6.6 first Rust module (PyO3) → 6.7 Rust game server.
-**Details:** [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md). One file per subphase as each starts.
+**Details:** [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
 **Checkpoint:** Two players level through the starting zone together; green CI; every major change written up in `projects/`.
 
 ### Phase 7 — AI automation in a larger project (after Phase 6)
-Once the topics are understood: which tasks in a big software project to delegate or automate with AI, and how. Raw material: `planning/delegation_log.md`.
+Once the topics are understood: which tasks in a big software project to delegate or automate with AI, and how. Raw material: `delegated` rows in the progress logs.
 **Checkpoint:** Its own article.
 
 ---
 
 ## Risks
 
-### MkDocs ecosystem fork (identified 2026-08-30)
+### Active
+
+#### Phase 6 scope creep (identified 2026-10-13)
+
+An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + small instances, not a world), one checkpoint per subphase, content as data, and no new system until the current subphase's checkpoint works. Full list of project risks in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
+
+### Resolved
+
+Kept as raw material for the first article (step 4.4).
+
+#### MkDocs ecosystem fork (identified 2026-08-30)
 
 The `mkdocs serve` output prints a warning about MkDocs 2.0. Background:
 
@@ -102,21 +111,13 @@ The `mkdocs serve` output prints a warning about MkDocs 2.0. Background:
 
 **Why this is not urgent for us:** Material pins `mkdocs<2`, and our `requirements.txt` is fully pinned. The build cannot silently break.
 
-**Blocker for migrating now:** ~~Zensical's `blog` plugin support is Tier 2 and not yet shipped. `tags` is also outstanding.~~ **Resolved (checked 2026-10-04):** `blog` supported since Zensical 0.0.64 (archives, categories, author profiles, pagination; only difference is no custom Python callables). `tags` supported since 0.0.58, including listings. Current Zensical version 0.0.67; 0.1.0 announced for 2026-11-05 — treat as a routine bump, not a reason to wait.
+**Blocker for migrating now:** ~~Zensical's `blog` plugin support is Tier 2 and not yet shipped. `tags` is also outstanding.~~ **Resolved (checked 2026-10-04):** `blog` supported since Zensical 0.0.64 (archives, categories, author profiles, pagination; only difference is no custom Python callables). `tags` supported since 0.0.58, including listings. Current Zensical version at the time: 0.0.67.
 
 **Support window:** Material's critical bug/security fixes run until November 2026.
 
-**Do not** set `NO_MKDOCS_2_WARNING=1` yet — the warning is useful signal, including in CI.
-
-**Revisit:** start of Phase 4, and again if Material's support window lapses.
-
 **Resolved 2026-10-16:** migrated to Zensical. Material's support window no longer affects us.
 
-**Watch:** Zensical [#966](https://github.com/zensical/zensical/issues/966) — `--strict` may miss broken links to blog posts by source path. Relevant at step 4.3.
-
-**Upcoming:** Zensical 0.1.0 due 2026-11-05. Routine pinned bump.
-
-### GitHub Actions Node 20 deprecation (identified 2026-08-30)
+#### GitHub Actions Node 20 deprecation (identified 2026-08-30)
 
 Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `actions/upload-artifact@v4` target Node 20 and are being forced onto Node 24. GitHub flipped the default on 2026-06-02; Node 20 is removed from runners 2026-09-16.
 
@@ -128,53 +129,35 @@ Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `ac
 
 **Also found 2026-10-16:** `deploy-pages@v4` warned too (it targets Node 20). Bumped to v5.
 
-**Lesson:** we don't control the whole dependency tree. Pinning our own dependencies is necessary but not sufficient. Consider Dependabot for the `github-actions` ecosystem at Phase 6.
+**Lesson:** we don't control the whole dependency tree. Pinning our own dependencies is necessary but not sufficient.
 
 **Article material:** this is the first write-up. "Chose a tool, ecosystem forked underneath me, here's how I decided" is more useful than a setup tutorial.
 
-### Ubuntu 26 runner migration (identified 2026-10-16)
+#### Ubuntu 26 runner migration (identified 2026-10-16)
 
 `ubuntu-latest` moves to Ubuntu 26 starting 2026-10-19. Pinned both jobs to `ubuntu-24.04` so the runner doesn't change under the Zensical migration.
-
-**Revisit:** after step 4.2.
-
-### Phase 6 scope creep (identified 2026-10-13)
-
-An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + small instances, not a world), one checkpoint per subphase, content as data, and no new system until the current subphase's checkpoint works. Full list of project risks in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
-
----
-
-## Status
-
-**Current phase:** 4 — Structure and first article
-**Current step:** 4.2 — Merge, confirm deploy.
-**Next up after Phase 5:** Phase 6.0 — game project setup.
 
 ---
 
 ## Progress log
 
-| Date | What happened |
-|---|---|
-| 2026-08-30 | Project scoped. Platform, language, environment, and deploy decisions locked in. Roadmap drafted. |
-| 2026-08-30 | Phase 1 done. Toolchain verified, git identity configured. Repo named `devlog`. |
-| 2026-08-30 | Repo cloned. venv + `mkdocs-material` 9.7.7 installed, `requirements.txt` pinned. Minimal `mkdocs.yml` + `docs/index.md` created; local build succeeds. |
-| 2026-08-30 | Hit the MkDocs 2.0 warning. Researched the ecosystem fork; decided to stay on Material and revisit at Phase 4. Logged under Risks. |
-| 2026-08-30 | Phase 2 done. First commit pushed; site skeleton on `main`. |
-| 2026-08-30 | Deploy workflow added; site live. Bumped actions for Node 24. Added `pull_request` trigger and gated the deploy job so PRs validate without publishing. Confirmed `strict: true` fails the build on a broken link, and that merging a PR redeploys. |
-| 2026-08-30 | Phase 3 done. Ruleset on `main`: require PR, require `build` check, block force pushes, restrict deletions. |
-| 2026-10-04 | Back after a month. VS Code + Claude Code installed in WSL. Zensical revisit triggered: `blog` and `tags` both shipped. Decision reversed — migrate before Phase 4 content. |
-| 2026-10-12 | Explored a 40k-style MMORPG as the Phase 6 project. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling (Blender MCP, Meshy/Tripo). |
-| 2026-10-13 | Phase 6 decided: Godot client, Python backend, staged move to Rust. Compared Godot, Unity, Unreal, and Bevy; Bevy rejected for now. Plan written up in `phase6_pseudo_mmo.md`. |
-| 2026-10-16 | Step 4.0 done. Ruleset bypass list confirmed empty. Run 38911805234 green after Node 20 removal. Remaining Node 20 warnings fixed by bumping `deploy-pages` to v5 and `upload-pages-artifact` to v5. Runner pinned to `ubuntu-24.04` ahead of the Ubuntu 26 switch (2026-10-19). |
-| 2026-10-16 | Step 4.1: migrated to Zensical 0.0.71 (classic variant), still on `mkdocs.yml`. MkDocs + Material removed from `requirements.txt`. Strict verified locally: a broken link and a broken anchor both exit 1. CI runs `zensical build --clean --strict`. |
-| 2026-10-16 | Switched to mentor mode (PR #8). Phase 5 refocused on learning with AI as a coach. AI automation moved to Phase 7, after Phase 6. |
+Mode: `coached` (did it myself with AI guidance), `delegated` (handed off to AI), `solo`, or `—` (before modes were tracked).
 
----
-
-## Open questions
-
-- Custom domain, or stick with `username.github.io`? Deferred; easy to add later.
-- Move config from `mkdocs.yml` to `zensical.toml`? (Not required; Zensical reads `mkdocs.yml` natively.)
-- Switch theme variant from `classic` to `modern`?
-- ~~Which backend project for Phase 6? Leaning toward a small API with a real database over a toy CRUD demo.~~ **Resolved 2026-10-13:** pseudo-MMO prototype; the API + database becomes its meta backend. Phase 6 open questions now live in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
+| Date | Mode | What happened |
+|---|---|---|
+| 2026-08-30 | — | Project scoped. Platform, language, environment, and deploy decisions locked in. Roadmap drafted. |
+| 2026-08-30 | — | Phase 1 done. Toolchain verified, git identity configured. Repo named `devlog`. |
+| 2026-08-30 | — | Repo cloned. venv + `mkdocs-material` 9.7.7 installed, `requirements.txt` pinned. Minimal `mkdocs.yml` + `docs/index.md` created; local build succeeds. |
+| 2026-08-30 | — | Hit the MkDocs 2.0 warning. Researched the ecosystem fork; decided to stay on Material and revisit at Phase 4. Logged under Risks. |
+| 2026-08-30 | — | Phase 2 done. First commit pushed; site skeleton on `main`. |
+| 2026-08-30 | — | Deploy workflow added; site live. Bumped actions for Node 24. Added `pull_request` trigger and gated the deploy job so PRs validate without publishing. Confirmed `strict: true` fails the build on a broken link, and that merging a PR redeploys. |
+| 2026-08-30 | — | Phase 3 done. Ruleset on `main`: require PR, require `build` check, block force pushes, restrict deletions. |
+| 2026-10-04 | — | Back after a month. VS Code + Claude Code installed in WSL. Zensical revisit triggered: `blog` and `tags` both shipped. Decision reversed — migrate before Phase 4 content. |
+| 2026-10-12 | — | Explored a 40k-style MMORPG as the Phase 6 project. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling (Blender MCP, Meshy/Tripo). |
+| 2026-10-13 | — | Phase 6 decided: Godot client, Python backend, staged move to Rust. Compared Godot, Unity, Unreal, and Bevy; Bevy rejected for now. Plan written up in `phase6_pseudo_mmo.md`. |
+| 2026-10-16 | delegated | Step 4.0 done. Ruleset bypass list confirmed empty. Run 38911805234 green after Node 20 removal. Remaining Node 20 warnings fixed by bumping `deploy-pages` to v5 and `upload-pages-artifact` to v5. Runner pinned to `ubuntu-24.04` ahead of the Ubuntu 26 switch (2026-10-19). **Lesson:** we don't control the whole dependency tree; pinning our own dependencies is necessary but not sufficient. |
+| 2026-10-16 | delegated | Step 4.1: migrated to Zensical 0.0.71 (classic variant), still on `mkdocs.yml`. MkDocs + Material removed from `requirements.txt`. Strict verified locally: a broken link and a broken anchor both exit 1. CI runs `zensical build --clean --strict`. |
+| 2026-10-16 | solo | Step 4.2 done: PR #7 merged, push run 38921045348 (build + deploy) green. |
+| 2026-10-16 | delegated | Switched to mentor mode (PR #8). |
+| 2026-10-17 | coached | Phase 5 refocused on learning with AI as a coach; AI automation moved to Phase 7, after Phase 6. Coaching log set up (file creation handed off) (PR #9). **Lesson:** when a decision changes, whatever depends on it goes stale too — CLAUDE.md still pointed at the old Phase 5 topic. Found it from the first guiding question, no hint needed. |
+| 2026-10-18 | delegated | Planning docs overhauled: tasks and open questions moved to the TickTick board, Status section removed, Decisions tables reduced to the current choice, coaching and delegation logs folded into this log (Mode column). **Lesson:** single source of truth is per fact, not per item — a step can appear in the roadmap and in TickTick as long as each place owns a different fact about it. |
