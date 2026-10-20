@@ -21,7 +21,7 @@ The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**:
 
 | Decision | Choice | Why |
 |---|---|---|
-| Docs platform | Zensical (classic variant), config in `mkdocs.yml` (not GitHub Wiki) | Wiki has no build pipeline, poor theming, bad discoverability. Zensical is the successor to Material for MkDocs (maintenance mode), Python-installable, and supports `blog` and `tags`. Background under Risks. |
+| Docs platform | Zensical (modern variant), config in `zensical.toml` (not GitHub Wiki) | Wiki has no build pipeline, poor theming, bad discoverability. Zensical is the successor to Material for MkDocs (maintenance mode), Python-installable, and supports `blog` and `tags`. Background under Risks. |
 | Language | Python | Already familiar, used at work. |
 | Environment | WSL | Containers are Linux; CI runs on Ubuntu. Code lives in WSL filesystem, not `/mnt/c/`. |
 | Deploy | GitHub Actions → Pages | Never from a local machine — that builds from local state and skips CI entirely. |
@@ -109,7 +109,7 @@ The `mkdocs serve` output prints a warning about MkDocs 2.0. Background:
 - Material for MkDocs entered **maintenance mode** (Nov 2025): critical bug/security fixes for at least 12 months, no new features. All former Insiders features are now free.
 - The Material team's successor project is **Zensical** (Rust + Python, MIT, actively developed). Community forks also exist: ProperDocs, MaterialX.
 
-**Why this is not urgent for us:** Material pins `mkdocs<2`, and our `requirements.txt` is fully pinned. The build cannot silently break.
+**Why this is not urgent for us:** ~~Material pins `mkdocs<2`, and our `requirements.txt` is fully pinned. The build cannot silently break.~~ **Resolved (2026-10-20):** mkdocs dependency is removed because of switch to zensical
 
 **Blocker for migrating now:** ~~Zensical's `blog` plugin support is Tier 2 and not yet shipped. `tags` is also outstanding.~~ **Resolved (checked 2026-10-04):** `blog` supported since Zensical 0.0.64 (archives, categories, author profiles, pagination; only difference is no custom Python callables). `tags` supported since 0.0.58, including listings. Current Zensical version at the time: 0.0.67.
 
@@ -161,3 +161,4 @@ Mode: `coached` (did it myself with AI guidance), `delegated` (handed off to AI)
 | 2026-10-16 | delegated | Switched to mentor mode (PR #8). |
 | 2026-10-17 | coached | Phase 5 refocused on learning with AI as a coach; AI automation moved to Phase 7, after Phase 6. Coaching log set up (file creation handed off) (PR #9). **Lesson:** when a decision changes, whatever depends on it goes stale too — CLAUDE.md still pointed at the old Phase 5 topic. Found it from the first guiding question, no hint needed. |
 | 2026-10-18 | delegated | Planning docs overhauled: tasks and open questions moved to the TickTick board, Status section removed, Decisions tables reduced to the current choice, coaching and delegation logs folded into this log (Mode column). **Lesson:** single source of truth is per fact, not per item — a step can appear in the roadmap and in TickTick as long as each place owns a different fact about it. |
+| 2026-10-20 | coached | Moved config from `mkdocs.yml` to `zensical.toml` and switched the theme to the modern variant. Proved local strict mode by breaking a link on purpose. **Lesson:** CI only sees the exit code, not the log; strict turns warnings into a non-zero exit, and TOML needs a real boolean (true, not "true"). Got unstuck at the hint step. |
