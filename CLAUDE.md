@@ -17,14 +17,14 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 
 ## Stack
 
-- Zensical 0.0.71 (classic variant) with `strict: true`. Config is still `mkdocs.yml`, which Zensical reads natively. Migrated from MkDocs Material 9.7.7 in step 4.1.
+- Zensical 0.0.71 (modern variant) with `strict = true`. Config is  `zensical.toml`, which Zensical reads natively. Migrated from MkDocs Material 9.7.7 in step 4.1.
 - Python 3.12 in WSL. Dependencies are fully pinned in `requirements.txt`.
 - Deploy: GitHub Actions → GitHub Pages (`.github/workflows/`). Two jobs: `build` → `deploy`. Pull requests build but never deploy.
 
 ## Layout
 
 - `docs/` — site content. `notes/` and `projects/` sections are planned (step 4.3).
-- `mkdocs.yml` — site config (read by Zensical; the filename is historical).
+- `zensical.toml` — site config (read by Zensical; the filename is historical).
 - `planning/` — living planning docs (`wiki_project.md`, `phase6_pseudo_mmo.md`). Not part of the site.
 
 ## Commands
