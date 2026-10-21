@@ -125,6 +125,8 @@ Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `ac
 
 **Update 2026-10-04:** Node 20 removal date has passed. Workflow not exercised since 2026-08-30 — verify with a manual run (step 4.0).
 
+**Update 2026-10-21:** bumped to `actions/checkout@v7` and `actions/setup-python@v7`.
+
 ~~**Not ours to fix:** `upload-artifact@v4` is called from inside `upload-pages-artifact@v3`, a composite action. Open upstream issue. Nothing breaks — the job already runs on Node 24.~~ **Resolved 2026-10-16:** `upload-pages-artifact@v5` bundles `upload-artifact@v7`. Bumped. (v4+ excludes dotfiles from the artifact; our `site/` has none.)
 
 **Also found 2026-10-16:** `deploy-pages@v4` warned too (it targets Node 20). Bumped to v5.
@@ -136,6 +138,8 @@ Build logs warned that `actions/checkout@v4`, `actions/setup-python@v5`, and `ac
 #### Ubuntu 26 runner migration (identified 2026-10-16)
 
 `ubuntu-latest` moves to Ubuntu 26 starting 2026-10-19. Pinned both jobs to `ubuntu-24.04` so the runner doesn't change under the Zensical migration.
+
+**Update 2026-10-21:** bumped to `ubuntu-26.04`.
 
 ---
 

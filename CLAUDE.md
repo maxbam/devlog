@@ -38,7 +38,7 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 - **Never deploy from a local machine.** Deploys go through CI only. (Zensical has no `gh-deploy`; don't add a substitute.)
 - **Never weaken `strict: true`** or silence warnings to get a build green. Fix the cause.
 - **Pin exact versions** when adding or bumping a dependency, and say why in the commit message.
-- **GitHub Actions:** keep minimal `permissions`, keep the deploy-job gate, and use current major versions (`actions/checkout@v5`, `actions/setup-python@v6`).
+- **GitHub Actions:** keep minimal `permissions`, keep the deploy-job gate, and use current major versions (`actions/checkout@v7`, `actions/setup-python@v7`).
 - Run `zensical build --clean` before saying a handed-off task is done, and report the result.
 
 ## Content
