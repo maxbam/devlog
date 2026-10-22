@@ -35,7 +35,7 @@ The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**:
 ### Guiding principles
 
 - **Practices are answers to problems.** Build something slightly too simple, feel the pain, then document why it changed. More honest and more interesting than a checklist.
-- **Two content areas, different standards.** `notes/` is fast and messy and for me. `projects/` is polished and for readers. Making everything presentable is how documentation habits die.
+- **Two content areas, one standard.** `blog/` holds self-contained articles, dated and tagged. `projects/` holds one area per long-running project: its documentation and, later, a short public roadmap. Both are public, so both get a minimum polish. Rough thinking stays off the site: to-dos in TickTick, planning in `planning/`. Making everything presentable by hand is how documentation habits die, so the polish is shared: the idea and the draft come from me, and AI helps make them presentable.
 - **Timebox the site.** A day, not a weekend. Empty docs sites stay empty.
 
 ---
@@ -61,12 +61,12 @@ GitHub Actions workflow: build on push to `main`, deploy via the Pages action. B
 **Verified:** `strict: true` rejects a link to a non-existent page — reproduced locally (`mkdocs build`, non-zero exit) and on a PR, with `main` untouched.
 
 ### Phase 4 — Structure and first article
-Nav structure, `notes/` vs `projects/` split, blog plugin for notes. First article: setting up this site.
+Nav structure, `blog/` vs `projects/` split, blog plugin for `blog/`. First article: setting up this site.
 **Steps:**
 - 4.0 — ✅ Verified 2026-10-16 via push run 38911805234 (build + deploy green after Node 20 removal).
 - 4.1 — ✅ Done 2026-10-16 on branch `feat/zensical-migration` (PR check proves it).
 - 4.2 — ✅ Merge, confirm deploy. Done 2026-10-16: PR #7 merged, push run 38921045348 green.
-- 4.3 — Nav structure, `notes/` + `projects/`, blog config.
+- 4.3 — ✅ Nav structure, `blog/` + `projects/`, blog config. Done 2026-10-22: PR #14, run 39848497254 green.
 - 4.4 — First article (written by me, not delegated).
 **Checkpoint:** One real article published end to end.
 
@@ -80,7 +80,7 @@ Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventi
 **Stack:** Godot 4 client (GDScript) · FastAPI + PostgreSQL + Redis meta backend · Python real-time game server, migrating to Rust · Docker Compose · GitHub Actions.
 **Subphases:** 6.0 project setup → 6.1 meta backend → 6.2 networked skeleton → 6.3 combat core → 6.4 starting zone → 6.5 hub → 6.6 first Rust module (PyO3) → 6.7 Rust game server.
 **Details:** [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
-**Checkpoint:** Two players level through the starting zone together; green CI; every major change written up in `projects/`.
+**Checkpoint:** Two players level through the starting zone together; green CI; every major change documented in `projects/pseudo-mmo/`; self-contained write-ups as blog posts.
 
 ### Phase 7 — AI automation in a larger project (after Phase 6)
 Once the topics are understood: which tasks in a big software project to delegate or automate with AI, and how. Raw material: `delegated` rows in the progress logs.
@@ -167,3 +167,6 @@ Mode: `coached` (did it myself with AI guidance), `delegated` (handed off to AI)
 | 2026-10-18 | delegated | Planning docs overhauled: tasks and open questions moved to the TickTick board, Status section removed, Decisions tables reduced to the current choice, coaching and delegation logs folded into this log (Mode column). **Lesson:** single source of truth is per fact, not per item — a step can appear in the roadmap and in TickTick as long as each place owns a different fact about it. |
 | 2026-10-20 | coached | Moved config from `mkdocs.yml` to `zensical.toml` and switched the theme to the modern variant. Proved local strict mode by breaking a link on purpose. **Lesson:** CI only sees the exit code, not the log; strict turns warnings into a non-zero exit, and TOML needs a real boolean (true, not "true"). Got unstuck at the hint step. |
 | 2026-10-21 | solo | Bumped `actions/checkout` and `actions/setup-python` to v7 and both jobs to `ubuntu-26.04`; CLAUDE.md rule updated to match (PR #12). Python 3.12 has a 26.04 build in `actions/python-versions`. Kept the runner pinned rather than `ubuntu-latest`: the Zensical-migration reason is gone, but OS changes should still land as a PR. PR run 39664731704 (build) and push run 39664811508 (build + deploy) green. |
+| 2026-10-22 | coached | Content model redefined: `notes/` became `blog/` (self-contained articles, dated and tagged), `projects/` holds one area per long-running project. Both public, one minimum standard; rough thinking stays in TickTick and `planning/`. CLAUDE.md content rules changed: idea and draft are mine, AI changes text only on request and otherwise suggests. **Lesson:** a section name can describe the format (blog) or the content (notes); asking which one the URL should promise exposed that the real question was what goes in each section. Got unstuck at the concept step. |
+| 2026-10-22 | delegated | Checked Zensical #966 on 0.0.71: links to posts by source file resolve to the dated post URL (also post-to-post), and strict fails on a link to a missing post. Tested in a scratch copy. **Lesson:** link to posts by source file, never by published URL; the URL depends on the post date, so a hard-coded one breaks when the date changes. |
+| 2026-10-22 | coached | Step 4.3 done (PR #14, run 39848497254 green). Blog plugin with default settings, placeholder project page, automatic nav kept (Blog → Some Interesting Stuff), blog index with title and intro. **Lesson:** `draft: true` shows a post in `serve` but leaves it out of `build`, so `serve` is not what ships; check the build output. Found it from the first guiding question. |
