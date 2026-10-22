@@ -23,7 +23,7 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 
 ## Layout
 
-- `docs/` — site content. `notes/` and `projects/` sections are planned (step 4.3).
+- `docs/` — site content: `blog/` (self-contained articles, dated and tagged) and `projects/` (one area per long-running project). Set up in step 4.3.
 - `zensical.toml` — site config (read by Zensical; the filename is historical).
 - `planning/` — living planning docs (`wiki_project.md`, `phase6_pseudo_mmo.md`). Not part of the site.
 
@@ -43,8 +43,10 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 
 ## Content
 
-- `notes/` is fast and informal, for me. Fixing formatting, links, and front matter there is fine.
-- `projects/` is polished writing for readers. **I write all article prose.** Do not draft, rewrite, or "improve" article text. Fix typos, links, or formatting only when I ask.
+- `blog/` and `projects/` are both public and both get a minimum polish.
+- **The idea and the draft are mine.** Topics, first drafts, and the core argument of every article and page come from me. Don't write an article or section from scratch.
+- **Change text only where I ask** (e.g. "rewrite this paragraph", "write the intro here"). Otherwise suggest: improvements, rewrites, and ideas you think are missing, for me to take or leave.
+- **Public roadmaps stay in sync.** `projects/<name>/roadmap.md` is a rough public outline of the roadmap in `planning/`. When a roadmap step there is completed or changed, propose the matching update to the public roadmap.
 
 ## Delegate vs. not
 
