@@ -1,6 +1,6 @@
 # CLAUDE.md — devlog
 
-Documentation site and portfolio for maxbam, published at `https://maxbam.github.io/devlog/`.
+Documentation site and portfolio for maxbam, published at `https://devlog.maxbam.io/`.
 Plans and decisions live in `planning/`. Read `planning/wiki_project.md` before any non-trivial task.
 Tasks and current work are not tracked in this repo; they live on my TickTick board. Ask me what I'm working on. Don't add task lists, status sections, TODOs, or open-question lists to the planning docs.
 

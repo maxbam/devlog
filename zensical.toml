@@ -1,6 +1,6 @@
 [project]
 site_name = "devlog"
-site_url = "https://maxbam.github.io/devlog/"
+site_url = "https://devlog.maxbam.io/"
 repo_url = "https://github.com/maxbam/devlog"
 edit_uri = "edit/main/docs/"
 strict = true
