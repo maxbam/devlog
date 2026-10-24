@@ -170,3 +170,4 @@ Mode: `coached` (did it myself with AI guidance), `delegated` (handed off to AI)
 | 2026-10-22 | delegated | Checked Zensical #966 on 0.0.71 in a scratch copy: links to posts by source file resolve to the dated URL, and strict fails on a missing post. **Lesson:** link to posts by source file, not URL. |
 | 2026-10-22 | coached | Step 4.3 done (PR #14). Blog plugin on defaults, placeholder project page, automatic nav, blog index with intro. **Lesson:** `serve` isn't what ships; check `build` (first question). |
 | 2026-10-24 | delegated | Progress log shortened: run IDs and verification details dropped, duplicate Phase 6 rows removed, lessons cut to the essence. **Lesson:** details belong in the PR, not the log. |
+| 2026-10-24 | coached | Custom domain: devlog.maxbam.io via CNAME (DNS only), maxbam.io verified on the account, HTTPS enforced, site_url and CLAUDE.md updated. **Lesson:** DNS knows hostnames, not paths (concept). |
