@@ -15,6 +15,8 @@ The site is also the first practice project. Building and deploying it is a CI/C
 
 The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**: a Godot client with a Python backend that moves step by step to Rust. Target audience for the portfolio: **backend and general software engineering roles**. Details in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
 
+A separate landing page at `maxbam.io` will link out to the devlog and the other projects. Details in [`landing_page.md`](landing_page.md).
+
 ---
 
 ## Decisions made
@@ -27,7 +29,7 @@ The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**:
 | Deploy | GitHub Actions → Pages | Never from a local machine — that builds from local state and skips CI entirely. |
 | Repo layout | One repo per project + one docs repo | Projects get thorough READMEs; docs site links out and holds cross-cutting material. |
 | Repo name | `devlog` | Avoids `wiki/wiki` URL collision with GitHub's built-in wiki feature. |
-| Domain | `devlog.maxbam.io`; `maxbam.io` redirects there until the hub exists | The devlog is the technical write-up; the hub links out to projects, which may have their own domains. A subdomain is cheap to change later; moving a live site isn't. |
+| Domain | `devlog.maxbam.io`; `maxbam.io` redirects there until the landing page exists | The devlog is the technical write-up; the landing page links out to projects, which may have their own domains. A subdomain is cheap to change later; moving a live site isn't. |
 | Phase 6 project | Pseudo-MMO prototype (40k-*style*, original IP): shared hub + instanced zones, 3 classes, one starting zone | Big enough to need real backend engineering (API, database, real-time server, contracts), small enough to finish. Expandable zone by zone. Absorbs the original "small API + Postgres" plan as its meta backend. |
 | Language path | Python first, then Rust — module by module, then service by service | Start productive in a known language; move to Rust where it measurably pays off. Each migration becomes a devlog article with before/after numbers. Rust is learned by hand, not delegated. |
 | AI role | Coach first, delegate later | Learning by doing. Delegate and automate only once the topics are understood. Automation becomes its own article after Phase 6. |
@@ -171,3 +173,4 @@ Mode: `coached` (did it myself with AI guidance), `delegated` (handed off to AI)
 | 2026-10-22 | coached | Step 4.3 done (PR #14). Blog plugin on defaults, placeholder project page, automatic nav, blog index with intro. **Lesson:** `serve` isn't what ships; check `build` (first question). |
 | 2026-10-24 | delegated | Progress log shortened: run IDs and verification details dropped, duplicate Phase 6 rows removed, lessons cut to the essence. **Lesson:** details belong in the PR, not the log. |
 | 2026-10-24 | coached | Custom domain: devlog.maxbam.io via CNAME (DNS only), maxbam.io verified on the account, HTTPS enforced, site_url and CLAUDE.md updated. **Lesson:** DNS knows hostnames, not paths (concept). |
+| 2026-10-25 | coached | maxbam.io and www.maxbam.io redirect (302) to devlog.maxbam.io via a Cloudflare redirect rule; proxied placeholder A record (192.0.2.1), www as CNAME. **Lesson:** "doesn't exist" gets cached too (concept). |

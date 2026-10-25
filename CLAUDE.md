@@ -24,8 +24,8 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 ## Layout
 
 - `docs/` — site content: `blog/` (self-contained articles, dated and tagged) and `projects/` (one area per long-running project). Set up in step 4.3.
-- `zensical.toml` — site config (read by Zensical; the filename is historical).
-- `planning/` — living planning docs (`wiki_project.md`, `phase6_pseudo_mmo.md`). Not part of the site.
+- `zensical.toml` — site config;
+- `planning/` — living planning docs (`wiki_project.md`, `phase6_pseudo_mmo.md`, `landing_page.md`). Not part of the site.
 
 ## Commands
 
