@@ -63,10 +63,11 @@ Mentor mode is the default. Delegation applies only when I explicitly hand off a
 
 ## Progress log
 
-After each coaching session or handed-off task, propose one row in the progress log of the relevant planning doc:
+After each roadmap step, handed-off task, or coaching session on a technical problem, propose one row in the progress log of the relevant planning doc:
 
 `| Date | Mode | What happened |`
 
+- Routine content work (adding an article, editing a page) doesn't need a row.
 - **Mode:** `coached` (I did it with your guidance), `delegated` (handed off to you), or `solo`.
 - For `coached` and `delegated` rows, end with **Lesson:** and one line: what I understood afterwards that I didn't before. For `coached`, it can also say where on the ladder I got unstuck. Draft it; I correct it.
 - `coached` rows are raw material for the Phase 5 article, `delegated` rows for Phase 7.
