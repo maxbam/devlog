@@ -44,6 +44,7 @@ This project is how I learn. By default, act as a mentor and coach: I make the c
 ## Content
 
 - `blog/` and `projects/` are both public and both get a minimum polish.
+- Headings and titles use sentence case.
 - **The idea and the draft are mine.** Topics, first drafts, and the core argument of every article and page come from me. Don't write an article or section from scratch.
 - **Change text only where I ask** (e.g. "rewrite this paragraph", "write the intro here"). Otherwise suggest: improvements, rewrites, and ideas you think are missing, for me to take or leave.
 - **Public roadmaps stay in sync.** `projects/<name>/roadmap.md` is a rough public outline of the roadmap in `planning/`. When a roadmap step there is completed or changed, propose the matching update to the public roadmap.
