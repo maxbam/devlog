@@ -11,7 +11,7 @@ A documentation site hosted on GitHub Pages that serves two audiences:
 - **Me** — a searchable lookup for things I've figured out, so I don't re-solve the same problem.
 - **Others** — evidence of how I work as a developer.
 
-The site is also the first practice project. Building and deploying it is a CI/CD exercise, and writing it up is the site's first article.
+The site is also the first practice project. Building and deploying it is a CI/CD exercise.
 
 The main portfolio project that follows (Phase 6) is a **pseudo-MMO prototype**: a Godot client with a Python backend that moves step by step to Rust. Target audience for the portfolio: **backend and general software engineering roles**. Details in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
 
@@ -64,19 +64,19 @@ GitHub Actions workflow: build on push to `main`, deploy via the Pages action. B
 **Verified:** `strict: true` rejects a link to a non-existent page — reproduced locally (`mkdocs build`, non-zero exit) and on a PR, with `main` untouched.
 
 ### Phase 4 — Structure and first article
-Nav structure, `blog/` vs `projects/` split, blog plugin for `blog/`. First article: setting up this site.
+Nav structure, `blog/` vs `projects/` split, blog plugin for `blog/`. First article: learning with AI as a coach (the Phase 5 article, pulled forward).
 **Steps:**
 - 4.0 — ✅ Verified 2026-10-16 via push run 38911805234 (build + deploy green after Node 20 removal).
 - 4.1 — ✅ Done 2026-10-16 on branch `feat/zensical-migration` (PR check proves it).
 - 4.2 — ✅ Merge, confirm deploy. Done 2026-10-16: PR #7 merged, push run 38921045348 green.
 - 4.3 — ✅ Nav structure, `blog/` + `projects/`, blog config. Done 2026-10-22: PR #14, run 39848497254 green.
-- 4.4 — First article (written by me, not delegated).
+- 4.4 — First article: learning with AI as a coach (written by me, not delegated). Also meets the Phase 5 checkpoint.
 **Checkpoint:** One real article published end to end.
 
 ### Phase 5 — Learning with AI as a coach
 Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventions (guiding question → hint → concept → solution only on request), learning to investigate and debug, and when a handoff is still fine. Raw material: `coached` rows in the progress logs.
 **Done early:** VS Code and Claude Code installed (confirmed 2026-10-04). Mentor mode active since 2026-10-16 (PR #8). Steps up to 4.1 were delegated, which gives a "before" picture to compare against.
-**Checkpoint:** Article two — how to use AI to learn, with AI as a coach.
+**Checkpoint:** The first article (step 4.4) — how to use AI to learn, with AI as a coach.
 
 ### Phase 6 — Pseudo-MMO prototype (main portfolio project)
 ~~Small API + Postgres, migrations, docker-compose for local dev, tests in CI.~~ Expanded 2026-10-13: the original backend project becomes the **meta backend** (subphase 6.1) of a pseudo-MMO prototype.
@@ -100,8 +100,6 @@ Once the topics are understood: which tasks in a big software project to delegat
 An MMO-shaped project grows without limit. Mitigations: pseudo-MMO scope (hub + small instances, not a world), one checkpoint per subphase, content as data, and no new system until the current subphase's checkpoint works. Full list of project risks in [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
 
 ### Resolved
-
-Kept as raw material for the first article (step 4.4).
 
 #### MkDocs ecosystem fork (identified 2026-08-30)
 
