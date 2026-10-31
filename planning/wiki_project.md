@@ -63,14 +63,14 @@ GitHub Actions workflow: build on push to `main`, deploy via the Pages action. B
 **Triggers:** `push` to `main`, `pull_request` to `main`, `workflow_dispatch`. Deploy job gated with `if: github.event_name == 'push'` so PRs validate but never publish. (`push` only fires on `main`, so no separate branch check is needed.)
 **Verified:** `strict: true` rejects a link to a non-existent page — reproduced locally (`mkdocs build`, non-zero exit) and on a PR, with `main` untouched.
 
-### Phase 4 — Structure and first article
+### Phase 4 — Structure and first article ✅
 Nav structure, `blog/` vs `projects/` split, blog plugin for `blog/`. First article: a welcome post on why this blog exists and what it covers.
 **Steps:**
 - 4.0 — ✅ Verified 2026-10-16 via push run 38911805234 (build + deploy green after Node 20 removal).
 - 4.1 — ✅ Done 2026-10-16 on branch `feat/zensical-migration` (PR check proves it).
 - 4.2 — ✅ Merge, confirm deploy. Done 2026-10-16: PR #7 merged, push run 38921045348 green.
 - 4.3 — ✅ Nav structure, `blog/` + `projects/`, blog config. Done 2026-10-22: PR #14, run 39848497254 green.
-- 4.4 — First article: welcome post (written by me, not delegated).
+- 4.4 — ✅ First article: welcome post (written by me, not delegated). Done 2026-10-31: PR #21, run 41220222627 green.
 **Checkpoint:** One real article published end to end.
 
 ### Phase 5 — Learning with AI as a coach
@@ -172,3 +172,4 @@ Mode: `coached` (did it myself with AI guidance), `delegated` (handed off to AI)
 | 2026-10-24 | delegated | Progress log shortened: run IDs and verification details dropped, duplicate Phase 6 rows removed, lessons cut to the essence. **Lesson:** details belong in the PR, not the log. |
 | 2026-10-24 | coached | Custom domain: devlog.maxbam.io via CNAME (DNS only), maxbam.io verified on the account, HTTPS enforced, site_url and CLAUDE.md updated. **Lesson:** DNS knows hostnames, not paths (concept). |
 | 2026-10-25 | coached | maxbam.io and www.maxbam.io redirect (302) to devlog.maxbam.io via a Cloudflare redirect rule; proxied placeholder A record (192.0.2.1), www as CNAME. **Lesson:** "doesn't exist" gets cached too (concept). |
+| 2026-10-31 | coached | Step 4.4 done (PR #21): welcome post published. First draft split into a welcome post and the coaching article (now article two); site-setup article dropped; headings in sentence case site-wide. **Lesson:** one article, one argument; if title, plan, and ending promise different things, it's two articles (first question). |
