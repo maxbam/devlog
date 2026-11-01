@@ -105,7 +105,7 @@ game/
 Rough effort: 6.0–6.5 around **3–5 months part-time**. 6.6–6.7 depend on how Rust learning goes. Estimates, not commitments.
 
 ### 6.0.1 — Repo setup
-- Decide: setting and names — game name (also the repo name), factions, tone document.
+- Decide: setting and names — factions, tone document. Repo and game use the working title `grimdark-online`; a final game name is optional.
 - Decide: confirm the repo layout above.
 - Create the repo with that layout; Git LFS for assets from the first commit.
 - Docker Compose with API, Postgres, and Redis (empty services).
@@ -235,3 +235,4 @@ Mode: `coached`, `delegated`, `solo`, or `—` (before modes were tracked). See 
 | 2026-10-13 | — | Engines compared (Godot, Unity, Unreal, Bevy). Portfolio target set: backend / general SE. Language path decided: Python first, then Rust. Game server moved from Godot headless to a separate Python service. Subphases 6.0–6.7 drafted. |
 | 2026-10-13 | — | Camera: isometric. Godot editor: Windows-native, opening the repo inside WSL (fallback: Windows-side clone if imports get slow). Movement: WASD, camera-relative; client-side prediction added to 6.2. |
 | 2026-11-01 | coached | Hosting decided: develop locally, deploy early to a VPS through CI (option B). 6.0 split into 6.0.1 repo setup and 6.0.2 VPS and deploy. **Lesson:** where you develop and where you deploy are separate choices; local only gets sloppy when it differs from production (concept). |
+| 2026-11-01 | coached | Repo naming: chose working title `grimdark-online`, may stay as the final name since the project is a portfolio piece. Weighed descriptive vs. evocative names and checked candidates (mmo-game, for-the-empire, Spacequest, empire) against IP, searchability and tone. |
