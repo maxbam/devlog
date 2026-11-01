@@ -81,7 +81,7 @@ Claude Code in VS Code as a mentor, not a doer: `CLAUDE.md` mentor-mode conventi
 ### Phase 6 — Pseudo-MMO prototype (main portfolio project)
 ~~Small API + Postgres, migrations, docker-compose for local dev, tests in CI.~~ Expanded 2026-10-13: the original backend project becomes the **meta backend** (subphase 6.1) of a pseudo-MMO prototype.
 **Stack:** Godot 4 client (GDScript) · FastAPI + PostgreSQL + Redis meta backend · Python real-time game server, migrating to Rust · Docker Compose · GitHub Actions.
-**Subphases:** 6.0 project setup → 6.1 meta backend → 6.2 networked skeleton → 6.3 combat core → 6.4 starting zone → 6.5 hub → 6.6 first Rust module (PyO3) → 6.7 Rust game server.
+**Subphases:** 6.0.1 repo setup → 6.0.2 VPS and deploy → 6.1 meta backend → 6.2 networked skeleton → 6.3 combat core → 6.4 starting zone → 6.5 hub → 6.6 first Rust module (PyO3) → 6.7 Rust game server.
 **Details:** [`phase6_pseudo_mmo.md`](phase6_pseudo_mmo.md).
 **Checkpoint:** Two players level through the starting zone together; green CI; every major change documented in `projects/pseudo-mmo/`; self-contained write-ups as blog posts.
 

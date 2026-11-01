@@ -36,7 +36,7 @@ A playable prototype of a **40k-style pseudo-MMO**: gothic sci-fi, grimdark tone
 | Local infra | Docker Compose | One command starts API, Postgres, Redis, and game server. |
 | CI | GitHub Actions | Already familiar from Phase 3. Tests, lint, and later Rust builds. |
 | Assets | Blender (+ Blender MCP), Meshy/Tripo for models, Mixamo for animations, glTF/GLB, Git LFS | Claude Code doesn't make art. Placeholders until 6.4; check licenses before use. |
-| Hosting | Single cheap VPS when needed | Kubernetes/Agones only if a real limit forces it. |
+| Hosting | Develop locally; deploy early to a single cheap VPS, updated through CI | Same Compose file in both places, so local can't drift sloppier than production. The host gets hardened while there's little to protect. Kubernetes/Agones only if a real limit forces it. |
 
 **Game server note:** earlier discussion assumed a Godot headless server. Switched to a separate Python server because (a) it's a backend showcase rather than engine scripting, (b) it gives the PyO3 step (6.6) real CPU-bound Python code to optimize, and (c) a Rust rewrite (6.7) then replaces Python with Rust behind the same protocol. Cost: the server can't reuse Godot's physics, so it simulates a simplified world — positions on the ground plane, circle colliders, a navmesh exported from the zone. The client renders full 3D.
 
@@ -85,7 +85,7 @@ A playable prototype of a **40k-style pseudo-MMO**: gothic sci-fi, grimdark tone
 - **Game server:** fixed tick loop (start at 20 Hz), authoritative movement and combat, one process can host several instances. Verifies the player's JWT on connect; writes progress (XP, loot) back through the meta backend.
 - **Client:** sends input, renders state, interpolates other players. Never decides outcomes.
 
-**Proposed repo layout** (confirm at 6.0), following the "one repo per project" decision:
+**Proposed repo layout** (confirm at 6.0.1), following the "one repo per project" decision:
 
 ```
 game/
@@ -104,7 +104,7 @@ game/
 
 Rough effort: 6.0–6.5 around **3–5 months part-time**. 6.6–6.7 depend on how Rust learning goes. Estimates, not commitments.
 
-### 6.0 — Project setup
+### 6.0.1 — Repo setup
 - Decide: setting and names — game name (also the repo name), factions, tone document.
 - Decide: confirm the repo layout above.
 - Create the repo with that layout; Git LFS for assets from the first commit.
@@ -116,6 +116,14 @@ Rough effort: 6.0–6.5 around **3–5 months part-time**. 6.6–6.7 depend on h
 - Confirm the Windows client reaches services in WSL on `localhost`.
 
 **Checkpoint:** `docker compose up` starts all services; a PR runs CI green.
+
+### 6.0.2 — VPS and deploy
+- Decide: VPS provider, and how CI deploys to it (e.g. SSH + `docker compose pull` with images from GHCR).
+- Rent the VPS and harden the host: SSH keys only, no root login, firewall with only the needed ports open, automatic security updates.
+- Deploy job: a merge to `main` deploys the Compose stack to the VPS. Same gate as `devlog`: PRs build but never deploy. Deploy credentials as GitHub secrets, minimal `permissions`.
+- Production runs the same Compose file as local: secrets from the environment, database port never published.
+
+**Checkpoint:** a merge to `main` deploys the stack to the hardened VPS.
 
 ### 6.1 — Meta backend
 The original Phase 6 project.
@@ -187,7 +195,7 @@ The original Phase 6 project.
 **Article:** rewriting a service behind a stable contract.
 
 ### Beyond the prototype
-More zones and classes; deploy to a VPS; possibly the meta backend in Rust (Axum) — for learning, stated honestly, since it's I/O-bound.
+More zones and classes; possibly the meta backend in Rust (Axum) — for learning, stated honestly, since it's I/O-bound.
 
 ---
 
@@ -213,6 +221,7 @@ More zones and classes; deploy to a VPS; possibly the meta backend in Rust (Axum
 | Art style inconsistency; asset licensing | Placeholders until 6.4; consistent concept images; log the license of every asset. |
 | Games Workshop IP | Original names, factions, and designs only. |
 | Python server performance | Intended. It's the measured reason for 6.6 and 6.7, not a failure. |
+| Public server gets compromised | Host hardened in 6.0.2, before any app is exposed; only needed ports open; database never published; secrets only in CI and on the host. |
 
 ---
 
@@ -225,3 +234,4 @@ Mode: `coached`, `delegated`, `solo`, or `—` (before modes were tracked). See 
 | 2026-10-12 | — | Idea: 40k-style MMORPG prototype. Scoped down to a pseudo-MMO (hub + instances). Reviewed AI 3D tooling: Blender MCP for scene work, Meshy/Tripo for generated assets. |
 | 2026-10-13 | — | Engines compared (Godot, Unity, Unreal, Bevy). Portfolio target set: backend / general SE. Language path decided: Python first, then Rust. Game server moved from Godot headless to a separate Python service. Subphases 6.0–6.7 drafted. |
 | 2026-10-13 | — | Camera: isometric. Godot editor: Windows-native, opening the repo inside WSL (fallback: Windows-side clone if imports get slow). Movement: WASD, camera-relative; client-side prediction added to 6.2. |
+| 2026-11-01 | coached | Hosting decided: develop locally, deploy early to a VPS through CI (option B). 6.0 split into 6.0.1 repo setup and 6.0.2 VPS and deploy. **Lesson:** where you develop and where you deploy are separate choices; local only gets sloppy when it differs from production (concept). |
